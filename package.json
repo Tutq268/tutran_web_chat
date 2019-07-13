@@ -1,0 +1,22 @@
+{
+  "name": "tutranchat",
+  "version": "1.0.0",
+  "description": "tu tran web chat and app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tutq268/tutran_web_chat.git"
+  },
+  "author": "tutran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tutq268/tutran_web_chat/issues"
+  },
+  "homepage": "https://github.com/Tutq268/tutran_web_chat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
