@@ -1,8 +1,9 @@
-var express = require('express')
-var app = express()
+// let express = require('express')
+import express from "express"
+let app = express()
 
-var hostname = "localhost"
-var port = 8686
+let hostname = "localhost"
+let port = 8686
 
 
 app.get("/helloworld",(req,res)=> {
