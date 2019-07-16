@@ -2,6 +2,7 @@
 import express from "express"
 import monggoDB from './config/connectDB'
 // import ContactModel from './models/contact.model'
+import initRouter from './routes/web'
 
 import configViewEngine from './config/viewEngine'
 
@@ -29,13 +30,8 @@ configViewEngine(app)
 //         console.log(err)
 //     }
 // })
-app.get("/",(req,res)=>{
-   return res.render("main/master")
-})
-app.get("/login-register",(req,res)=>{
-    return res.render("auth/loginRegister")
 
-})
+initRouter(app)
 app.listen(process.env.APP_PORT,(req,res)=> {
     console.log(`hello tu tran. I'm runiing at : ` + process.env.APP_PORT)
 })
