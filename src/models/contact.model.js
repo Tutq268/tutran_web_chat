@@ -5,9 +5,9 @@ let ContactSchema = new schema({
   userId: String,
   contactId: String,
   status: {type: Boolean, default: false},
-  createAt: {type: String, default: Date.now},
-  updateAt: {type: String, default: Date.now},
-  deleteAt: {type: String, default: Date.now}
+  createdAt: {type: String, default: Date.now},
+  updatedAt: {type: String, default: null},
+  deletedAt: {type: String, default: null}
 })
 
 ContactSchema.statics = {
