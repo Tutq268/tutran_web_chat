@@ -13,7 +13,6 @@ let app = express()
 // connect mongodb
 monggoDB()
 
-
 // config viewengine
 configViewEngine(app)
 
