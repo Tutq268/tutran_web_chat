@@ -18,3 +18,4 @@ import bluebird from 'bluebird'
       return mongoose.connect(URI,{useNewUrlParser : true})
     }
     module.exports = connectDB
+    
