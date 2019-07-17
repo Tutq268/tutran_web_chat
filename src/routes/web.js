@@ -4,10 +4,10 @@ import {authVali} from "./../validation/index"
 let router = express.Router()
 
 let initRouter = (app) => {
-  router.get("/",home.getHome)
- router.get("/login-register",auth.getAuth)
+  router.get("/login-register",auth.getAuth)
+ router.get("/",home.getHome)
 
- router.post("/register", authVali.register, home.postRegister)
+ router.post("/register", authVali.register, auth.postRegister)
  return app.use("/",router)
 }
 module.exports = initRouter
