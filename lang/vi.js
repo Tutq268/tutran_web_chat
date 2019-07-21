@@ -9,14 +9,18 @@ export const transError = {
   ACCOUNT_IN_USE : "email nay da duoc su dung",
   ACCOUNT_DELETE: " Tài khoản này đã bị xoá",
   ACCOUNT_NOT_ACTIVE: " Bạn chưa active email. vui lòng vào email và active tài khoản",
-  TOKEN_UNDEFIED: " Tai Khoan Da Duoc kich Hoat Truoc Do"
-}
+  TOKEN_UNDEFIED: " Tai Khoan Da Duoc kich Hoat Truoc Do",
+  LOGIN_FAILED: " Sai tai khoan hoac mat khau"
+} 
 
 export const transSuccess = {
   user_created: (userEmail) => {
      return `Tai khoan <strong>${userEmail}</strong> da duoc tao, vui long kiem tra email cua ban de active tai khoan.`
   },
-  account_active: " Tai Khoan Cua Ban Da Duoc Kich Hoat Thanh Cong. "
+  account_active: " Tai Khoan Cua Ban Da Duoc Kich Hoat Thanh Cong. ",
+  loginSuccess: (userEmail) => {
+    return ` Xin chao ${userEmail}, Dang Nhap Thanh Cong `
+  }
 }
 
 export const transSendMail = {

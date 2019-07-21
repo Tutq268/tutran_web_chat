@@ -25,7 +25,7 @@ let register =  (email,gender,password,protocol,host) => {
    
    let salt = bcrypt.genSaltSync(saltRounds)
     let userItem = {
-      username: email.split("@")[0],
+      userName: email.split("@")[0],
       gender: gender,
       local: {
        email: email,
