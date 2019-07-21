@@ -2,26 +2,41 @@ import express from 'express'
 import {home, auth} from './../controllers/index'
 import {authVali} from "./../validation/index"
 import passport from 'passport'
-import initPassportLocal from './../config/passportController/local'
+import initPassportLocal from './../controllers/passportController/local'
+import initPassportFacebook from './../controllers/passportController/facebook'
+import initPassportGoogle from './../controllers/passportController/google'
+
 // init all passport
 initPassportLocal()
-
+initPassportFacebook()
+initPassportGoogle()
 let router = express.Router()
 
 let initRouter = (app) => {
-  router.get("/login-register",auth.checkLogout,auth.getAuth)
- 
-  router.get("/verify/:token",auth.checkLogout, auth.verifyAccount)
- router.post("/register",auth.checkLogout, authVali.register, auth.postRegister)
- router.post("/login",auth.checkLogout,passport.authenticate("local",{
+  router.get("/login-register", auth.checkLogout,auth.getAuth)
+ router.get("/", auth.checkLogin,home.getHome)
+  router.get("/verify/:token", auth.checkLogout, auth.verifyAccount)
+ router.post("/register", auth.checkLogout, authVali.register, auth.postRegister)
+ router.get("/logout",auth.checkLogin, auth.getLogout)
+ router.post("/login", auth.checkLogout,passport.authenticate("local",{
    successRedirect: "/",
    failureRedirect: "/login-register",
    successFlash: true,
    failureFlash: true,
-   session: false
+  //  session: false
  }))
- router.get("/logout",auth.checkLogin, auth.getLogout)
- router.get("/",auth.checkLogin ,home.getHome)
+ 
+ router.get("/auth/facebook", auth.checkLogout,passport.authenticate("facebook", {scope: ["email"]}))
+ router.get("/auth/facebook/callback",auth.checkLogout, passport.authenticate("facebook",{
+  successRedirect: "/",
+  failureRedirect: "/login-register"
+ }))
+ router.get("/auth/google",auth.checkLogout, passport.authenticate("google", {scope: ["email"]}))
+ router.get("/auth/google/callback",auth.checkLogout,passport.authenticate("google",{
+  successRedirect: "/",
+  failureRedirect: "/login-register"
+ }))
+
  return app.use("/",router)
 }
 
