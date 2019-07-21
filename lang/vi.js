@@ -20,7 +20,8 @@ export const transSuccess = {
   account_active: " Tai Khoan Cua Ban Da Duoc Kich Hoat Thanh Cong. ",
   loginSuccess: (userEmail) => {
     return ` Xin chao ${userEmail}, Dang Nhap Thanh Cong `
-  }
+  },
+  logout_success: "Dang Xuat Tai Khoan Thanh Cong"
 }
 
 export const transSendMail = {
@@ -34,3 +35,5 @@ export const transSendMail = {
   },
   SEND_MAIL_FAILED: "co loi trong qua trinh gui email. vui long lien he lai voi bo phan ho tro cua chung toi"
 }
+
+
