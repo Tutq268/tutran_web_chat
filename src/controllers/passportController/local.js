@@ -23,10 +23,9 @@ let initPassportLocal = () => {
       if(!checkPassword){
         return done(null, false, req.flash("errors", transError.LOGIN_FAILED))
       }
-      return done(null,true,req.flash("success",transSuccess.loginSuccess(user.userName)))
+      return done(null,user,req.flash("success",transSuccess.loginSuccess(user.userName)))
       
     }catch(error){
-      console.log(error)
       return done(null,false,req.flash("errors","Loi Server!"))
     }
   }
@@ -34,12 +33,11 @@ let initPassportLocal = () => {
    // save user id to sesstion
     passport.serializeUser((user,done) => {
       done(null, user._id)  
-    })
+    })  
 
   passport.deserializeUser((id, done) => {
     UserModel.findUserById(id)
     .then(user => {
-      console.log(user)
         return done(null,user)
     })
     .catch(error => {

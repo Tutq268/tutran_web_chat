@@ -73,6 +73,8 @@ let checkLogout = (req,res,next) => {
      req.flash("success", transSuccess.logout_success)
      return res.redirect("/login-register")
   }
+
+  
 module.exports = {
   getAuth: getLoginRegister,
   postRegister: postRegister,
