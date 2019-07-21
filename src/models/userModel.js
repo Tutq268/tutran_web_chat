@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
+
 mongoose.set('useFindAndModify', false);
 
 let schema = mongoose.Schema
@@ -41,15 +43,23 @@ UserSchema.statics = {
   removeById(id){
    return this.findOneAndDelete(id).exec()
   },
-   findByToken(token){
-     return this.findOne({"local.verifyToken" : token}).exec()
-   },
+  findByToken(token){
+    return this.findOne({"local.verifyToken" : token}).exec()
+  },
   verify(token){
     return this.findOneAndUpdate({
      "local.verifyToken": token
     },{
      "local.isActive": true, "local.verifyToken": null
     }).exec()
+  },
+  findUserById(id){
+    this.findById(id).exec()
+  }
+}
+UserSchema.methods = {
+  comparePassword(password){
+     return bcrypt.compare(password, this.local.password)
   }
 }
 
