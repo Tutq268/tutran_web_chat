@@ -11,69 +11,67 @@ import passport from 'passport'
 import pem from 'pem'
 import https from 'https'
 require('dotenv').config()
-pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
-    if (err) {
-      throw err
-    }
-    let app = express()
+// pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+//     if (err) {
+//       throw err
+//     }
+//     let app = express()
 
 
-    // connect mongodb
-    monggoDB()
+//     // connect mongodb
+//     monggoDB()
     
-    // cấu hình session
-    configSession(app)
-    // config viewengine
-    configViewEngine(app)
-    
-    
+//     // cấu hình session
+//     configSession(app)
+//     // config viewengine
+//     configViewEngine(app)
     
     
-    app.use(bodyParser.urlencoded({extended: true}))
     
-    // enable flash
-    app.use(connectFlash())
     
-    ///config passport
-    app.use(passport.initialize())
-    app.use(passport.session())
+//     app.use(bodyParser.urlencoded({extended: true}))
     
-    initRouter(app)
+//     // enable flash
+//     app.use(connectFlash())
+    
+//     ///config passport
+//     app.use(passport.initialize())
+//     app.use(passport.session())
+    
+//     initRouter(app)
  
-    https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT,(req,res)=> {
-        console.log(`hello tu tran. I'm runiing at : ` + process.env.APP_PORT)
-    })
-  })
+//     https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(process.env.APP_PORT,(req,res)=> {
+//         console.log(`hello tu tran. I'm runiing at : ` + process.env.APP_PORT)
+//     })
+//   })
 
-//   let app = express()
-
-
-//   // connect mongodb
-//   monggoDB()
-  
-//   // cấu hình session
-//   configSession(app)
-//   // config viewengine
-//   configViewEngine(app)
-  
-  
-  
-  
-//   app.use(bodyParser.urlencoded({extended: true}))
-  
-//   // enable flash
-//   app.use(connectFlash())
-  
-//   ///config passport
-
-//   app.use(passport.initialize())
-//   app.use(passport.session())
-  
-//   initRouter(app)
+  let app = express()
 
 
+  // connect mongodb
+  monggoDB()
+  
+  // cấu hình session
+  configSession(app)
+  // config viewengine
+  configViewEngine(app)
+  
+  
+  
+  
+  app.use(bodyParser.urlencoded({extended: true}))
+  
+  // enable flash
+  app.use(connectFlash())
+  
+  ///config passport
 
-// app.listen(process.env.APP_PORT,(req,res)=> {
-//     console.log(`hello tu tran. I'm runiing at : ` + process.env.APP_PORT)
-// })
+  app.use(passport.initialize())
+  app.use(passport.session())
+  
+  initRouter(app)
+
+app.listen(process.env.APP_PORT,(req,res)=> {
+    console.log(`hello tu tran. I'm runiing at : ` + process.env.APP_PORT)
+})
     

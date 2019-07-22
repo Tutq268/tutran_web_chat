@@ -28,6 +28,7 @@ let initPassportLocal = () => {
     }catch(error){
       return done(null,false,req.flash("errors","Loi Server!"))
     }
+      
   }
   ))
    // save user id to sesstion
