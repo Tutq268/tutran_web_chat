@@ -10,7 +10,9 @@ export const transError = {
   ACCOUNT_DELETE: " Tài khoản này đã bị xoá",
   ACCOUNT_NOT_ACTIVE: " Bạn chưa active email. vui lòng vào email và active tài khoản",
   TOKEN_UNDEFIED: " Tai Khoan Da Duoc kich Hoat Truoc Do",
-  LOGIN_FAILED: " Sai tai khoan hoac mat khau"
+  LOGIN_FAILED: " Sai tai khoan hoac mat khau",
+  avatar_type: "Sai dinh dang anh",
+  avatar_size : "dung luong anh khong duoc vuot qua 1MB"
 } 
 
 export const transSuccess = {
@@ -21,7 +23,8 @@ export const transSuccess = {
   loginSuccess: (userEmail) => {
     return ` Xin chao ${userEmail}, Dang Nhap Thanh Cong `
   },
-  logout_success: "Dang Xuat Tai Khoan Thanh Cong"
+  logout_success: "Dang Xuat Tai Khoan Thanh Cong",
+  avatar_updated: "cap nhat anh dai dien thanh cong"
 }
 
 export const transSendMail = {

@@ -1,5 +1,5 @@
 import express from 'express'
-import {home, auth} from './../controllers/index'
+import {home, auth, user} from './../controllers/index'
 import {authVali} from "./../validation/index"
 import passport from 'passport'
 import initPassportLocal from './../controllers/passportController/local'
@@ -18,6 +18,9 @@ let initRouter = (app) => {
   router.get("/verify/:token", auth.checkLogout, auth.verifyAccount)
  router.post("/register", auth.checkLogout, authVali.register, auth.postRegister)
  router.get("/logout",auth.checkLogin, auth.getLogout)
+router.put("/user/update-avatar",auth.checkLogin, user.updateAvatar)
+
+
  router.post("/login", auth.checkLogout,passport.authenticate("local",{
    successRedirect: "/",
    failureRedirect: "/login-register",

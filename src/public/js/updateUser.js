@@ -71,8 +71,26 @@ $(document).ready(function(){
       contentType: false,
       processData: false,
       data: userAvatar,
-      success: function(result){},
-      error: function(error){}
+      success: function(result){
+        $(".user-modal-alert-success").find("span").text(result.message)
+        $(".user-modal-alert-success").css("display", "block")
+        $("#navbar-avatar").attr("src", result.imageSrc)
+        
+
+        //update origin avatar src 
+        avatarOriginSrc = result.imageSrc
+        $("#input-btn-cancle-update-user").click()
+
+
+      },
+      error: function(error){
+        // hien thi loi
+        console.log(error)
+        $(".user-modal-alert-error").find("span").text(error.responseText)
+        $(".user-modal-alert-error").css("display", "block")
+        $("#input-btn-cancle-update-user").click()
+
+      }
     })
   })
   $("#input-btn-cancle-update-user").bind("click", function(){
