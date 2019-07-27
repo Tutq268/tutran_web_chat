@@ -1,6 +1,6 @@
 import express from 'express'
 import {home, auth, user} from './../controllers/index'
-import {authVali} from "./../validation/index"
+import {authVali,userVali} from "./../validation/index"
 import passport from 'passport'
 import initPassportLocal from './../controllers/passportController/local'
 import initPassportFacebook from './../controllers/passportController/facebook'
@@ -19,7 +19,7 @@ let initRouter = (app) => {
  router.post("/register", auth.checkLogout, authVali.register, auth.postRegister)
  router.get("/logout",auth.checkLogin, auth.getLogout)
 router.put("/user/update-avatar",auth.checkLogin, user.updateAvatar)
-
+router.put('/user/update-info',auth.checkLogin, userVali.checUser,user.updateUserInfo)
 
  router.post("/login", auth.checkLogout,passport.authenticate("local",{
    successRedirect: "/",
