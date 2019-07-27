@@ -4,6 +4,7 @@ import {transError,transSuccess} from './../../lang/vi'
 import uuidv4 from 'uuid/v4'
 import {user} from './../services/index'
 import fsExtra from 'fs-extra'
+import {validationResult} from "express-validator/check"
 
 
 let storageAvatar = multer.diskStorage({
@@ -55,6 +56,32 @@ let updateAvatar = (req,res) => {
    }
    })
 }
+
+let updateUserInfo = async (req,res) =>{
+
+try {
+  let errorArr = []
+  let validationError = validationResult(req)
+  if (!validationError.isEmpty()){
+     let errors =Object.values(validationError.mapped())
+     errors.forEach(item => {
+       errorArr.push(item.msg)
+     });
+
+     return res.status(500).send(errorArr)
+    }
+  let updateUserItem = req.body
+  await user.updateUser(req.user._id, updateUserItem)
+  let result = {
+    message: transSuccess.user_info_updateted,
+    }
+    return res.status(200).send(result)
+} catch (error) {
+  console.log(error)
+  return res.status(500).send(error)
+}
+}
 module.exports ={
-  updateAvatar: updateAvatar
+  updateAvatar: updateAvatar,
+  updateUserInfo: updateUserInfo
 }
