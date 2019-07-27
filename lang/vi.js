@@ -17,7 +17,9 @@ export const transError = {
   TOKEN_UNDEFIED: " Tai Khoan Da Duoc kich Hoat Truoc Do",
   LOGIN_FAILED: " Sai tai khoan hoac mat khau",
   avatar_type: "Sai dinh dang anh",
-  avatar_size : "dung luong anh khong duoc vuot qua 1MB"
+  avatar_size : "dung luong anh khong duoc vuot qua 1MB",
+  currentuser: "User nay khong ton tai",
+  user_current_password_failed: " Mat khau hien tai khong chinh xac"
 } 
 
 export const transSuccess = {
@@ -30,7 +32,8 @@ export const transSuccess = {
   },
   logout_success: "Dang Xuat Tai Khoan Thanh Cong",
   avatar_updated: "cap nhat anh dai dien thanh cong",
-  user_info_updateted: "cap nhat thong tin nguoi dung thanh cong"
+  user_info_updateted: "cap nhat thong tin nguoi dung thanh cong",
+  user_password_updated: " cap nhat mat khau thanh cong"
 }
 
 export const transSendMail = {

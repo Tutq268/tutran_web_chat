@@ -21,6 +21,8 @@ let initRouter = (app) => {
 router.put("/user/update-avatar",auth.checkLogin, user.updateAvatar)
 router.put('/user/update-info',auth.checkLogin, userVali.checUser,user.updateUserInfo)
 
+router.put("/user/update-password",auth.checkLogin,userVali.checkPassword,user.updatePasswordUser)
+
  router.post("/login", auth.checkLogout,passport.authenticate("local",{
    successRedirect: "/",
    failureRedirect: "/login-register",
