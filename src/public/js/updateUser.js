@@ -2,6 +2,8 @@ let userAvatar = null
 let userInfo = {}
 let avatarOriginSrc = null
 let originUserInfo = {}
+let userUpdatePassword = {}
+
 
 function updateUserInfo(){
   $("#input-change-avatar").bind("change",function(){
@@ -57,6 +59,57 @@ function updateUserInfo(){
   $("#input-change-phone").bind("change",function(){
     userInfo.phone = $(this).val()
   })
+
+
+  // update password
+  $("#input_change_current_password").bind("change",function(){
+    let currentPassword = $(this).val()
+    let reqexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/)
+
+    if(!reqexPassword.test(currentPassword)){
+      alertify.notify("Kieu mat khau bi sai","error",7)
+      $(this).val(null)
+      delete userUpdatePassword.currentPassword
+      return false
+    }
+    userUpdatePassword.currentPassword = currentPassword
+
+  })
+
+  $("#input_change_new_password").bind("change",function(){
+    let newPassword = $(this).val()
+    console.log(newPassword)
+    let reqexPassword = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/)
+
+    if(!reqexPassword.test(newPassword)){
+      alertify.notify("Nhap sai kieu mat khau moi","error",7)
+      $(this).val(null)
+      delete userUpdatePassword.newPassword
+      return false
+    }
+    userUpdatePassword.newPassword = newPassword
+
+  })
+
+  $("#input_change_confirm_new_password").bind("change",function(){
+    let confirmPassword = $(this).val()
+    console.log(confirmPassword)
+    if(!userUpdatePassword.newPassword){
+      alertify.notify("ban chua nhap mat khau moi","error",7)
+      $(this).val(null)
+      delete userUpdatePassword.confirmPassword
+      return false
+    }
+    if(confirmPassword !== userUpdatePassword.newPassword){
+      alertify.notify("nhap lai mat khau chua chinh xac","error",7)
+      $(this).val(null)
+      delete userUpdatePassword.confirmPassword
+      return false
+    }
+    userUpdatePassword.confirmPassword = confirmPassword
+
+  })
+  
 }
 
 function callUpdateAvatar() {
@@ -110,17 +163,48 @@ function callUpdateUserInfo(){
     },
     error: function(error){
       // hien thi loi
-      console.log(error)
       $(".user-modal-alert-error").find("span").text(error.responseText)
       $(".user-modal-alert-error").css("display", "block")
       $("#input-btn-cancle-update-user").click()
-      $("#input-change-username").val(originUserInfo.username)
+      $("#input-change-username").val(originUserInfo.userName)
       (originUserInfo.gender === "male") ? $("#input-change-gender-male").click() : $("#input-change-gender-female").click()
       $("#input-change-address").val(originUserInfo.address)
       $("#input-change-phone").val(originUserInfo.phone)
     }
   })
 }
+
+// ajax pass word
+function allUpdateUserPassword(){
+  $.ajax({
+    url: "/user/update-password",
+    type: "put",
+    data: userUpdatePassword ,
+    success: function(result){
+      $(".user-modal-password-alert-success").find("span").text(result.message)
+      $(".user-modal-password-alert-success").css("display", "block")
+      //update origin avatar src 
+
+      $("#input_btn_cancle_password").click()
+
+
+    },
+    error: function(error){
+      // hien thi loi
+      console.log(error)
+      $(".user-modal-password-alert-error").find("span").text(error.responseText)
+      $(".user-modal-password-alert-error").css("display", "block")
+      $("#input_btn_cancle_password").click()
+      $("#input-change-username").val(originUserInfo.userName)
+      (originUserInfo.gender === "male") ? $("#input-change-gender-male").click() : $("#input-change-gender-female").click()
+      $("#input-change-address").val(originUserInfo.address)
+      $("#input-change-phone").val(originUserInfo.phone)
+    }
+  })
+}
+
+
+
 
 $(document).ready(function(){
   updateUserInfo()
@@ -151,6 +235,32 @@ $(document).ready(function(){
     ($("#input-change-gender-male").is(":checked")) ? $("#input-change-gender-male").val(originUserInfo.gender) : ("#input-change-gender-female").val(originUserInfo.gender),
     $("#input-change-address").val(originUserInfo.address),
     $("#input-change-phone").val(originUserInfo.phone)
+
+  })
+
+
+
+  // update password
+
+
+  $("#input_btn_update_password").bind("click",function(){
+     console.log(userUpdatePassword)
+
+     if(!userUpdatePassword.currentPassword || !userUpdatePassword.newPassword || !userUpdatePassword.confirmPassword){
+       alertify.notify("ban phai thay doi day du thong tin","error", 7)
+       return false
+     }
+     allUpdateUserPassword()
+
+  })
+
+
+  $("#input_btn_cancle_password").bind("click",function(){
+    userUpdatePassword = {}
+    $("#input_change_current_password").val(null)
+    $("#input_change_new_password").val(null)
+    $("#input_change_confirm_new_password").val(null)
+
 
   })
   

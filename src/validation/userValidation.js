@@ -16,6 +16,21 @@ let checUser = [
   .optional()
   .matches(/^(0)[0-9]{9,10}$/)
 ]
+
+let checkPassword = [
+  check("currentPassword", transValidation.password_incorrect)
+  .isLength({min: 8})
+  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/),
+
+  check("newPassword",transValidation.password_incorrect)
+  .isLength({min: 8})
+  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/),
+
+  check("confirmPassword",transValidation.password_confirmation_incorrect)
+  .isLength({min: 8})
+  .custom((value,{req}) => value === req.body.newPassword)
+]
 module.exports = {
-  checUser: checUser
+  checUser: checUser,
+  checkPassword: checkPassword
 }
