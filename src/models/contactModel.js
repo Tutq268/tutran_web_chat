@@ -13,6 +13,14 @@ let ContactSchema = new schema({
 ContactSchema.statics = {
   createNew(item){
     return this.create(item)
+  },
+  findContact(userId){
+    return this.find({
+      $or: [
+      {"userId": userId},
+      {"contactId": userId}
+      ]
+    }).exec()
   }
 }
 
