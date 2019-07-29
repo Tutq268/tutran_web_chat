@@ -99,6 +99,7 @@ try {
   let result = {
     message: transSuccess.user_password_updated
   }
+  console.log(result)
   res.status(200).send(result)
 } catch (error) {
   return res.status(500).send(error)
