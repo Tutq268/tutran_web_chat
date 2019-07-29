@@ -21,7 +21,4 @@ let configSession = (app) => {
     }
   }))
 }
-module.exports = {
-  config : configSession,
-  sessionStore : sessionStore
-}
+module.exports = configSession

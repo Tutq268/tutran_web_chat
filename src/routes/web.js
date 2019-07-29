@@ -31,7 +31,7 @@ router.delete("/contact/remove-request-contact",auth.checkLogin,contact.removeCo
 
  router.post("/login", auth.checkLogout,passport.authenticate("local",{
    successRedirect: "/",
-   failureRedirect: "/login-register",
+   failureRedirect: "/login-regiser",
    successFlash: true,
    failureFlash: true,
   //  session: false
