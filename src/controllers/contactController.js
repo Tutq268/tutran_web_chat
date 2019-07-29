@@ -23,6 +23,35 @@ let findContactUser =  async (req,res) => {
      res.status(500).send(error)
    }
 }
+
+let addContact = async (req,res) => {
+ try {
+   let currentId = req.user._id
+    let targetId = req.body.uid
+    let newContact = await contact.addContact(currentId,targetId)
+   return res.status(200).send({success: !!newContact})
+ } catch (error) {
+   return res.status(500).send(error)
+ }
+}
+
+let removeContact = async (req,res) => {
+ try {
+   let currentID = req.user._id
+   let targetId = req.body.uid
+   console.log(" current: " + currentID)
+   console.log("target: "+ targetId)
+   
+   let removeContact = await contact.removeContactRequest(currentID,targetId)
+   res.status(200).send({success: removeContact})
+
+ } catch (error) {
+   return res.status(500).send(error)
+   
+ }
+}
 module.exports = {
-  findContactUser : findContactUser
+  findContactUser : findContactUser,
+  addContact: addContact,
+  removeContact: removeContact
 }

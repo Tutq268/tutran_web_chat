@@ -1,6 +1,6 @@
 import express from 'express'
-import {home, auth, user} from './../controllers/index'
-import {authVali,userVali} from "./../validation/index"
+import {home, auth, user, contact} from './../controllers/index'
+import {authVali,userVali,contactVali} from "./../validation/index"
 import passport from 'passport'
 import initPassportLocal from './../controllers/passportController/local'
 import initPassportFacebook from './../controllers/passportController/facebook'
@@ -20,12 +20,18 @@ let initRouter = (app) => {
  router.get("/logout",auth.checkLogin, auth.getLogout)
 router.put("/user/update-avatar",auth.checkLogin, user.updateAvatar)
 router.put('/user/update-info',auth.checkLogin, userVali.checUser,user.updateUserInfo)
-
 router.put("/user/update-password",auth.checkLogin,userVali.checkPassword,user.updatePasswordUser)
+
+
+
+
+router.get('/contact/user-users/:keyword',auth.checkLogin,contactVali.checkContactKeyWord, contact.findContactUser)
+router.post("/contact/add-new",auth.checkLogin,contact.addContact)
+router.delete("/contact/remove-request-contact",auth.checkLogin,contact.removeContact)
 
  router.post("/login", auth.checkLogout,passport.authenticate("local",{
    successRedirect: "/",
-   failureRedirect: "/login-register",
+   failureRedirect: "/login-regiser",
    successFlash: true,
    failureFlash: true,
   //  session: false

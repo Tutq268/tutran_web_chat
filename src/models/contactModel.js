@@ -13,7 +13,33 @@ let ContactSchema = new schema({
 ContactSchema.statics = {
   createNew(item){
     return this.create(item)
+  },
+  findContact(userId){
+    return this.find({
+      $or: [
+      {"userId": userId},
+      {"contactId": userId}
+      ]
+    }).exec()
+  },
+  checkExists(userId,contactId){
+    return this.findOne({
+      $or: [
+        {$and:[
+          {"userId": userId},
+          {"contactId": contactId}
+        ]},
+        {$and: [
+          {"userId": contactId},
+          {"contactId": userId}
+        ]}
+      ]
+    }).exec()
+  },
+  removeContact(currentID,targetId){
+    return this.deleteOne({
+      $and: [{"userId": currentID},{"contactId" : targetId}]
+    }).exec()
   }
 }
-
 module.exports = mongoose.model("contact", ContactSchema)
