@@ -17,8 +17,9 @@ function removeUserContact(){
   })
 }
 socket.on("remove-request-user",function(user){
-  $(".noti_content").find(`<span [data-uid="${ user.id }]`).remove()
-  decreaseNumberNotifContact(count-request-contact-received)
-  decreaseNumberNotification(noti_contact_counter)
-  decreaseNumberNotification(noti_counter)
+  $(".noti_content").find(`div[data-uid=${user.id}]`).remove()
+  $("ul.list-notifications").find(`li>div[data-uid=${user.id}]`).parent().remove()
+  decreaseNumberNotifContact("count-request-contact-received")
+  decreaseNumberNotification("noti_contact_counter")
+  decreaseNumberNotification("noti_counter")
 })

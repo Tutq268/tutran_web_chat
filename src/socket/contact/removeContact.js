@@ -12,8 +12,7 @@ let removeContact = (io) => {
         id : currentUserId
       }
 
-      emitNotifyToArray(clients,data.contactId,io,"response-add-new-contact",currentUserIdPushToClient)
-
+      emitNotifyToArray(clients,data.contactId,io,"remove-request-user",currentUserIdPushToClient)
     })
 
     socket.on("disconnect",()=>{
