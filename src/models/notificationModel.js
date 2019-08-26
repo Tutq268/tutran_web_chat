@@ -14,11 +14,17 @@ NotificationSchema.statics = {
   },
   removeNotifContact(currentID,targetId,type){
     return this.deleteOne({
-      $and: [{"userId": currentID},{"contactId" : targetId},{"type": type}]
+      $and: [{"sender": currentID},{"receiver" : targetId},{"type": type}]
     }).exec()
   },
   getContentOfUser(currentId,limit){
     return this.find({"receiver": currentId}).sort({"createdAt": -1}).limit(limit).exec()
+  },
+  getCountNotif(currentId){
+    return this.count({
+      $and: [
+        {"receiver": currentId},{"isRead": false}
+      ]}).exec()
   }
 }
 
@@ -31,16 +37,16 @@ const NOTIFICATION_CONTENT = {
     if(notifiType === NOTIFICATION_TYPE.ADD_CONTACT){
       // .notif-readed-false
       if(!isRead){
-        return `<span class= "notif-readed-false" data-uid="${userId}">
+        return `<div class= "notif-readed-false" data-uid="${userId}">
         <img class="avatar-small" src="images/users/${userAvatar}" alt=""> 
         <strong>${username}</strong> đã gửi cho bạn một lời mời kết bạn!
-      </span><br><br><br>`
+      </div>`
       }
       else{
-        return `<span data-uid="${userId}">
+        return `<div data-uid="${userId}">
         <img class="avatar-small" src="images/users/${userAvatar}" alt=""> 
         <strong>${username}</strong> đã gửi cho bạn một lời mời kết bạn!
-      </span><br><br><br>`
+      </div>`
       }
       
     }

@@ -13,11 +13,12 @@ function addContact(){
 }
 socket.on("response-add-new-contact",function(user){
   console.log(user)
-  let noti = `<span data-uid="${ user.id }">
+  let noti = `<div data-uid="${ user.id }">
                 <img class="avatar-small" src="images/users/${user.avatar}" alt=""> 
                 <strong>${user.userName}</strong> đã gửi cho bạn một lời mời kết bạn!
-              </span><br><br><br>`
+              `
     $(".noti_content").prepend(noti)
+    $("ul.list-notifications").prepend(`<li>${noti}</li>`)
     increaseNumberNotifContact("count-request-contact-received")
     increaseNumberNotification("noti_counter")
     increaseNumberNotification("noti_contact_counter")

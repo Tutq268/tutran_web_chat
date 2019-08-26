@@ -41,6 +41,7 @@ let removeContact = async (req,res) => {
    let targetId = req.body.uid
    
    let removeContact = await contact.removeContactRequest(currentID,targetId)
+   console.log(removeContact)
    res.status(200).send({success: removeContact})
 
  } catch (error) {
