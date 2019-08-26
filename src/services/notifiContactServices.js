@@ -1,9 +1,11 @@
 import NotificationModel from '../models/notificationModel'
 import UserModel from '../models/userModel'
-let notificationServices = (currentId, limit = 10) => {
+
+const LIMIT_NOTIF_COUNT = 10
+let notificationServices = (currentId) => {
    return new Promise(async (resolve, rejects) =>{
       try {
-          let notifications = await NotificationModel.model.getContentOfUser(currentId,limit)
+          let notifications = await NotificationModel.model.getContentOfUser(currentId,LIMIT_NOTIF_COUNT)
           let getNotiContents =  notifications.map(async (notification) => {
               let getSenderUser = await UserModel.findUserById(notification.sender)
               return NotificationModel.content.getContent(notification.type,notification.isRead,getSenderUser._id,getSenderUser.userName,getSenderUser.avatar)
@@ -19,8 +21,22 @@ let getCountNotif = (currentId) => {
     return new Promise(async (resolve, rejects) =>{
         try {
            let countNotif = await NotificationModel.model.getCountNotif(currentId)
-           console.log(countNotif)
            resolve(countNotif)
+        } catch (error) {
+            rejects(error)
+        }
+     })
+}
+
+let readmore = (userId,skipNumber)=>{
+    return new Promise(async (resolve, rejects) =>{
+        try {
+          let readMoreNotif = await NotificationModel.model.readMoreNotif(userId,skipNumber,LIMIT_NOTIF_COUNT)
+          let getMoreNotifContent =  readMoreNotif.map(async (notification) => {
+            let getSenderUser = await UserModel.findUserById(notification.sender)
+            return NotificationModel.content.getContent(notification.type,notification.isRead,getSenderUser._id,getSenderUser.userName,getSenderUser.avatar)
+        })
+        resolve(Promise.all(getMoreNotifContent))
         } catch (error) {
             rejects(error)
         }
@@ -28,5 +44,6 @@ let getCountNotif = (currentId) => {
 }
 module.exports = {
     notificationServices: notificationServices,
-    getCountNotif:getCountNotif
+    getCountNotif:getCountNotif,
+    readmore:readmore
 }
