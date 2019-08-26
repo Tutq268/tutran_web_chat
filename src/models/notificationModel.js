@@ -21,10 +21,13 @@ NotificationSchema.statics = {
     return this.find({"receiver": currentId}).sort({"createdAt": -1}).limit(limit).exec()
   },
   getCountNotif(currentId){
-    return this.count({
+    return this.countDocuments({
       $and: [
         {"receiver": currentId},{"isRead": false}
       ]}).exec()
+  },
+  readMoreNotif(currentId,skipNumber,limit){
+    return this.find({"receiver": currentId}).sort({"createdAt": -1}).skip(skipNumber).limit(limit).exec()
   }
 }
 

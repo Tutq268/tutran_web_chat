@@ -1,5 +1,5 @@
 import express from 'express'
-import {home, auth, user, contact} from './../controllers/index'
+import {home, auth, user, contact,notification} from './../controllers/index'
 import {authVali,userVali,contactVali} from "./../validation/index"
 import passport from 'passport'
 import initPassportLocal from './../controllers/passportController/local'
@@ -47,6 +47,8 @@ router.delete("/contact/remove-request-contact",auth.checkLogin,contact.removeCo
   successRedirect: "/",
   failureRedirect: "/login-register"
  }))
+
+ router.get("/notification/read-more",auth.checkLogin,notification.readMoreNotification)
 
  return app.use("/",router)
 }
