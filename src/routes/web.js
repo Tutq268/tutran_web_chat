@@ -49,6 +49,7 @@ router.delete("/contact/remove-request-contact",auth.checkLogin,contact.removeCo
  }))
 
  router.get("/notification/read-more",auth.checkLogin,notification.readMoreNotification)
+ router.put("/notification/mark-as-notif-readed",auth.checkLogin,notification.markAsNotifReaded)
 
  return app.use("/",router)
 }

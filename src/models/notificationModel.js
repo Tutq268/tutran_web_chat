@@ -28,6 +28,13 @@ NotificationSchema.statics = {
   },
   readMoreNotif(currentId,skipNumber,limit){
     return this.find({"receiver": currentId}).sort({"createdAt": -1}).skip(skipNumber).limit(limit).exec()
+  },
+  notifAsReaded(currentId,targetUsers){
+    return this.updateMany({
+        $and: [
+         {"receiver": currentId},
+         {"sender": {$in: targetUsers}}
+        ]},{"isRead": true}).exec()
   }
 }
 

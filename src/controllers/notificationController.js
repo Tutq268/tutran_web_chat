@@ -11,6 +11,18 @@ let readMoreNotification = async (req,res) =>{
       res.status(500).send(error)
   }
 }
+
+let markAsNotifReaded =async (req,res) => {
+    try {
+        let targetUsers = req.body.targetUsers
+        let markReaded = await notifContact.markReaded(req.user._id,targetUsers)
+        res.status(200).send(markReaded)
+    } catch (error) {
+        console.log("failed with error: " + error)
+        res.status(500).send(false)    
+    }
+}
 module.exports = {
-    readMoreNotification: readMoreNotification
+    readMoreNotification: readMoreNotification,
+    markAsNotifReaded:markAsNotifReaded
 }
