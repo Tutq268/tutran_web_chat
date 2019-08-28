@@ -36,6 +36,9 @@ $(document).ready(function(){
         $("ul.list-notifications").find("li>div.notif-readed-false").each(function(index,notification){
             targetUsers.push($(notification).data("uid"))
         })
+        if(!targetUsers.length){
+            alertify.notify("Tất Cả Thông Báo Đã Được Đọc","error",7)
+        }
         updateMarkNotifAsReadrd(targetUsers)
     })
 })

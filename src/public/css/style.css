@@ -462,7 +462,7 @@ border:  solid 1px #dfe6e9
 
 .navbar-brand>img {
   margin: -12px 0px 0px 7px;
-  width: 150px;
+  width: 50px;
   -webkit-filter: brightness(130%);
   filter: brightness(130%);
 }

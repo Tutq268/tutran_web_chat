@@ -54,6 +54,7 @@ let markReaded = (currentId,targetUsers)=>{
         }
     })
 }
+
 module.exports = {
     notificationServices: notificationServices,
     getCountNotif:getCountNotif,

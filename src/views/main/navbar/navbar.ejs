@@ -6,8 +6,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
           </button>
-          <a class="navbar-brand" href="https://trungquandev.com/" target="__blank">
-              <img src="images/logo_favicon/logo-trungquandev.png" alt="logo-trungquandev">
+          <a class="navbar-brand" href=# target="__blank">
+              <img src="images/users/avatar-default.jpg" alt="logo-trungquandev">
           </a>
       </div>
       <div class="col-sm-3 no-padding">
@@ -34,19 +34,20 @@
                   <a href="#contactsModal" data-toggle="modal" title="Quản lý liên lạc" id="show-modal-contacts">
                       <i class="fa fa-user-plus"></i>
                       <div class="noti_contact_counter">
-
+                            <% if(getCountContactsSend > 0){ %>
+                               <%= getCountContactsSend %>
+                                <% } %>
                       </div>
                   </a>
               </li>
               <li>
                   <a href="javascript:void(0)" id="noti_Button" data-toggle="modal" title="Thông báo">
                       <i class="fa fa-globe"></i>
-                     
+                      <div class="noti_counter">
                     <% if(countNotifications > 0){ %>
-                        <div class="noti_counter">
-                            <%= countNotifications%>
-                        </div>
-                    <% } %>
+                            <%= countNotifications %>
+                        <% }%>
+                    </div>
 
                      
                     
@@ -54,7 +55,6 @@
                           <div id="notifications">
                               <a href="javascript:void(0)" id="notif_readed">Đánh Dấu Tất Cả Là Đã Đọc</a>
                               <div class="noti_content">
-                   
                                <% notifications.forEach(function(notification){ %>
                                         <%- notification %>
                                  <%  }) %>
