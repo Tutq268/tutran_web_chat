@@ -83,6 +83,9 @@ UserSchema.statics = {
         ]}
       ]
     },{_id: 1, userName: 1, address: 1, avatar: 1}).exec()
+  },
+  findUserContact(uid){
+    return this.findById(uid,{_id: 1, userName: 1, address: 1, avatar: 1}).exec()
   }
 }
 UserSchema.methods = {

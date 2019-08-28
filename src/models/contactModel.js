@@ -90,6 +90,38 @@ ContactSchema.statics = {
         {"userId": currentId},{"status": false}
       ]
     }).exec()
+  },
+  loadMoreContacts(currentId,skipNumber,limit){
+    return this.find({
+      $and: [{
+        $or: [
+          {"userId": currentId},{"contactId": currentId}
+        ]
+      },{"status": true}]
+    }).sort({"createdAt": -1})
+    .skip(skipNumber)
+    .limit(limit)
+    .exec()
+  },
+  loadMoreContactsSent(currentId,skipNumber,limit){
+    return this.find({
+      $and: [
+        {"userId": currentId },{"status": false}
+      ]
+    }).skip(skipNumber)
+    .sort({"createdAt": -1})
+    .limit(limit)
+    .exec()
+  },
+  loadMoreContactsReceive(currentId,skipNumber,limit){
+    return this.find({
+      $and : [
+        {"contactId": currentId},{"status": false}
+      ]
+    }).skip(skipNumber)
+    .sort({"createdAt": -1})
+    .limit(limit)
+    .exec()
   }
 }
 module.exports = mongoose.model("contact", ContactSchema)

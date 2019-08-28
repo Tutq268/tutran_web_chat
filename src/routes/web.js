@@ -28,6 +28,12 @@ router.put("/user/update-password",auth.checkLogin,userVali.checkPassword,user.u
 router.get('/contact/user-users/:keyword',auth.checkLogin,contactVali.checkContactKeyWord, contact.findContactUser)
 router.post("/contact/add-new",auth.checkLogin,contact.addContact)
 router.delete("/contact/remove-request-contact",auth.checkLogin,contact.removeContact)
+router.get("/contacts/read-more-contacts",auth.checkLogin,contact.loadMoreContacts)
+router.get("/contacts/read-more-contacts-sent",auth.checkLogin,contact.loadMoreContactsSent)
+router.get("/contacts/read-more-contacts-receive",auth.checkLogin,contact.loadMoreContactsReceive)
+
+
+
 
  router.post("/login", auth.checkLogout,passport.authenticate("local",{
    successRedirect: "/",
