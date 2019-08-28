@@ -14,7 +14,8 @@ let addNewContact = (io) => {
       let currentUser = {
         id: socket.request.user._id,
         userName: socket.request.user.userName,
-        avatar: socket.request.user.avatar
+        avatar: socket.request.user.avatar,
+        address: (socket.request.user.address !== null) ? socket.request.user.address : ""
       }
        emitNotifyToArray(clients,data.contactId,io,"response-add-new-contact",currentUser)
     })

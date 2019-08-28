@@ -40,6 +40,56 @@ ContactSchema.statics = {
     return this.deleteOne({
       $and: [{"userId": currentID},{"contactId" : targetId}]
     }).exec()
+  },
+  getContacts(currentId,limit){
+    return this.find({
+      $and: [{ $or : [
+        {"userId": currentId},{"contactId" : currentId}
+      ]},{"status": true}
+    ]
+    })
+    .sort({"createdAt": -1})
+    .limit(limit)
+    .exec()
+  },
+  getContactsSend(currentId,limit){
+    return this.find({
+      $and : [{"userId": currentId},{"status": false}]
+    })
+    .sort({"createdAt": -1})
+    .limit(limit)
+    .exec()
+  },
+  getContactsReceived(currentId,limit){
+    return this.find({
+      $and : [
+        {"contactId": currentId},{"status": false}
+      ]
+    })
+    .sort({"createdAt": -1})
+    .limit(limit)
+    .exec()
+  },
+  getCountContacts(currentId){
+    return this.countDocuments({
+      $and: [
+        {$or: [{"userId": currentId},{"contactId": currentId}]},{"status": true}
+      ]
+    }).exec()
+  },
+  getCountContactReceived(currentId){
+    return this.countDocuments({
+      $and: [
+        {"contactId": currentId},{"status": false}
+      ]
+    }).exec()
+  },
+  getCountContactSend(currentId){
+    return this.countDocuments({
+      $and : [
+        {"userId": currentId},{"status": false}
+      ]
+    }).exec()
   }
 }
 module.exports = mongoose.model("contact", ContactSchema)
