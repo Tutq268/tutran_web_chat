@@ -4,7 +4,7 @@ $(document).ready(function(){
         $.get(`/notification/read-more?skipNumber=${skipNumber}`,function(notifications){
             $(".load_more_spinner").css("display","inline-block")
             $("#modal_read_more_notif").css("display","none")
-            if(!skipNumber.length){
+            if(!notifications.length){
                 $(".load_more_spinner").css("display","none")
                 $("#modal_read_more_notif").css("display","inline-block")
                 alertify.notify("Bạn Không Có Thông Báo Nào Nữa","error",7)
