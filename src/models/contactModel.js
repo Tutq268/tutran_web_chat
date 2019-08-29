@@ -41,6 +41,11 @@ ContactSchema.statics = {
       $and: [{"userId": currentID},{"contactId" : targetId}]
     }).exec()
   },
+  removeContactReceive(currentId,contactId){
+    return this.deleteOne({
+      $and: [{"userId":contactId},{"contactId": currentId}]
+    }).exec()
+  },
   getContacts(currentId,limit){
     return this.find({
       $and: [{ $or : [

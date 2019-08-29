@@ -10,8 +10,7 @@ $(document).ready(function(){
                 alertify.notify("Bạn Không Còn Bạn Bè Nào Nữa","error",7)
                 return false
             }
-            $(".load_more_contacts").css("display","none")
-            $("#read_more_contacts_send").css("display","inline-block")
+          
             contacts.forEach(contact =>{
               $("#request-contact-sent").find("ul").append(
                   `
@@ -29,7 +28,7 @@ $(document).ready(function(){
                       <div class="user-address">
                           <span>${(contact.address !== null) ? contact.address : ""}</span>
                       </div>
-                      <div class="user-remove-request-sent action-danger" data-uid="${contact._id}">
+                      <div class="user-remove-request-contact display-important action-danger" data-uid="${contact._id}">
                           Hủy yêu cầu
                       </div>
                   </div>
@@ -37,7 +36,9 @@ $(document).ready(function(){
                   `
               )
             })
-
+            removeUserContact()
+            $(".load_more_contacts").css("display","none")
+            $("#read_more_contacts_send").css("display","inline-block")
         })
     })
 })

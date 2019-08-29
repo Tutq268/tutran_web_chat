@@ -15,7 +15,6 @@ function increaseNumberNotification(className,number){
   currentValue += number
 
   if(currentValue === 0){
-    console.log("bang 0")
     $(`.${className}`).css("display", "none").html("")
   }
   else{
