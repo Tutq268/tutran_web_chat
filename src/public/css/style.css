@@ -1497,6 +1497,8 @@ border:  solid 1px #dfe6e9
     opacity: 0;
   }
 }
-
+.display-important{
+  display: inline-block !important
+}
 
 

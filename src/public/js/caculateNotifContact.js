@@ -1,7 +1,8 @@
 function decreaseNumberNotifContact(className){
+ 
   let currentValue = +$(`.${className}`).find("em").text()
   currentValue -= 1
-
+  console.log(currentValue)
   if(currentValue === 0){
     $(`.${className}`).html("")
   }

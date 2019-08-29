@@ -34,8 +34,8 @@
                   <a href="#contactsModal" data-toggle="modal" title="Quản lý liên lạc" id="show-modal-contacts">
                       <i class="fa fa-user-plus"></i>
                       <div class="noti_contact_counter">
-                            <% if(getCountContactsSend > 0){ %>
-                               <%= getCountContactsSend %>
+                            <% if(getCountContactsSend > 0 || getCountContactReceived >0){ %>
+                               <%= (getCountContactsSend + getCountContactReceived)  %>
                                 <% } %>
                       </div>
                   </a>
