@@ -39,7 +39,8 @@ NotificationSchema.statics = {
 }
 
 const NOTIFICATION_TYPE = {
-  ADD_CONTACT: "add contact"
+  ADD_CONTACT: "add contact",
+  APPROVED_CONTACT: "approved contact"
 }
 
 const NOTIFICATION_CONTENT = {
@@ -56,6 +57,22 @@ const NOTIFICATION_CONTENT = {
         return `<div data-uid="${userId}">
         <img class="avatar-small" src="images/users/${userAvatar}" alt=""> 
         <strong>${username}</strong> đã gửi cho bạn một lời mời kết bạn!
+      </div>`
+      }
+      
+    }
+    if(notifiType === NOTIFICATION_TYPE.APPROVED_CONTACT){
+      // .notif-readed-false
+      if(!isRead){
+        return `<div class= "notif-readed-false" data-uid="${userId}">
+        <img class="avatar-small" src="images/users/${userAvatar}" alt=""> 
+        <strong>${username}</strong> đã đồng ý lời mời kết bạn!
+      </div>`
+      }
+      else{
+        return `<div data-uid="${userId}">
+        <img class="avatar-small" src="images/users/${userAvatar}" alt=""> 
+        <strong>${username}</strong> đã đã đồng ý lời mời kết bạn!
       </div>`
       }
       

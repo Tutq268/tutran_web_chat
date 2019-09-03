@@ -211,6 +211,43 @@ let loadMoreContactReceive = (currentID,skipNumber)=>{
     }
 })
 }
+
+let approvedContact = (contactId,currentId) => {
+  return new Promise(async (resolve,rejects) =>{
+    try {
+     
+      let approvedContact = await ContactModel.approvedContactRequest(contactId,currentId)
+      if(approvedContact.nModified === 0){
+       return rejects(false)
+      }
+      let notificationItem = {
+        sender:contactId,
+        receiver: currentId,
+        type: NotificationModel.types.APPROVED_CONTACT,
+      }
+
+      await NotificationModel.model.createNew(notificationItem)
+      resolve(true)
+    } catch (error) {
+      console.log(error)
+      rejects(error)
+    }
+  })
+}
+
+let removeContactUser = (currentId,contactId) => {
+  return new Promise(async (resolve,rejects)=>{
+    try {
+      let removeContact = await ContactModel.removeContactUser(currentId,contactId)
+      if(removeContact.n ===0){
+        return rejects(false)
+      }
+      resolve(true)
+    } catch (error) {
+      rejects(error)
+    }
+  })
+}
 module.exports = {
   findContactUser : findContactUser,
   addContact: addContact,
@@ -224,5 +261,7 @@ module.exports = {
   getCountContactReceived: getCountContactReceived,
   loadMoreContact: loadMoreContact,
   loadMoreContactSent:loadMoreContactSent,
-  loadMoreContactReceive: loadMoreContactReceive
+  loadMoreContactReceive: loadMoreContactReceive,
+  approvedContact: approvedContact,
+  removeContactUser: removeContactUser
 }

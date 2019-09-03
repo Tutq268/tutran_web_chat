@@ -9,7 +9,13 @@
               <ul class="nav nav-tabs">
                   <li class="active"><a data-toggle="tab" href="#find-user">Tìm người dùng</a></li>
                   <li><a data-toggle="tab" id="link-contacts" href="#contacts">
-                      Danh bạ <span class="show-number-contacts count-contacts"></span>
+                      
+                      Danh bạ
+                      <% if(getCountContact > 0){ %>
+                        <span class="show-number-contacts count-contacts"><%= getCountContact %></span>
+                        <% }else{ %>
+                            <span class="show-number-contacts count-contacts"></span>
+                            <%   } %>
                   </a></li>
                   <li><a data-toggle="tab" id="link-request-contact-sent" href="#request-contact-sent">
                       Đang chờ xác nhận
