@@ -32,7 +32,8 @@ router.delete("/contact/remove-request-contact-receive",auth.checkLogin,contact.
 router.get("/contacts/read-more-contacts",auth.checkLogin,contact.loadMoreContacts)
 router.get("/contacts/read-more-contacts-sent",auth.checkLogin,contact.loadMoreContactsSent)
 router.get("/contacts/read-more-contacts-receive",auth.checkLogin,contact.loadMoreContactsReceive)
-
+router.put("/contact/approved-request-contact",auth.checkLogin,contact.approvedRequestContact)
+router.delete("/contact/remove-contact",auth.checkLogin,contact.removeContactUser)
 
 
 

@@ -127,6 +127,22 @@ ContactSchema.statics = {
     .sort({"createdAt": -1})
     .limit(limit)
     .exec()
+  },
+  approvedContactRequest(contactId,currentId){
+    return this.updateOne({
+    $and: [{"userId" : contactId},{"contactId": currentId},{"status": false}]
+    },{$set : {"status": true}}
+    ).exec()
+  },
+  removeContactUser(currentId,contactId){
+    return this.deleteOne({
+      $or: [
+        {
+          $and: [{"userId":contactId},{"contactId": currentId},{"status": true}]
+        },
+        { $and: [{"userId":currentId},{"contactId": contactId},{"status": true}]}
+      ]
+    }).exec()
   }
 }
 module.exports = mongoose.model("contact", ContactSchema)

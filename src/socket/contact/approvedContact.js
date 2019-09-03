@@ -1,0 +1,31 @@
+import {pushSocketIdToArray, emitNotifyToArray, removeSocketIdInArray} from './../../Helpers/socketHelper'
+
+let addNewContact = (io) => {
+  let clients = {}
+  io.on("connection",(socket)=>{
+
+
+    //add socketId currentUser
+    let currentUserId = socket.request.user._id
+    pushSocketIdToArray(clients,currentUserId,socket.id)
+
+    //socket add new contact
+    socket.on("approved-request-contact", (data) => {
+      let currentUser = {
+        id: socket.request.user._id,
+        userName: socket.request.user.userName,
+        avatar: socket.request.user.avatar,
+        address: (socket.request.user.address !== null) ? socket.request.user.address : ""
+      }
+       emitNotifyToArray(clients,data.contactId,io,"approved-request-user-contact",currentUser)
+    })
+
+
+    //remove socketid when user disconnect
+    socket.on("disconnect",() => {
+      removeSocketIdInArray(clients,currentUserId,socket.id)
+    })
+    
+  })
+}
+module.exports = addNewContact

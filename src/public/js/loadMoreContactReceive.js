@@ -41,6 +41,8 @@ $(document).ready(function(){
              )
             })
             removeRequestContactReceive()
+            approvedRequestContact()
+            removeContact()
 
         })
     })

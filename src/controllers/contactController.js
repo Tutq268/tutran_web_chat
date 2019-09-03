@@ -97,6 +97,30 @@ let loadMoreContactsReceive = async (req,res)=>{
     res.status(500).send(error)
   }
 }
+
+let approvedRequestContact = async (req,res)=>{
+  let contactId = req.body.uid
+  let currentId = req.user._id
+  try {
+    let approvedContact = await contact.approvedContact(contactId,currentId)
+    res.status(200).send({success: approvedContact})
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error)
+  }
+}
+
+let removeContactUser = async (req,res)=>{
+   let currentId = req.user._id
+   let contactId = req.body.uid
+   try {
+     let removeContactUser = await contact.removeContactUser(currentId,contactId)
+     res.status(200).send({success : removeContactUser})
+   } catch (error) {
+     console.log(error)
+     res.status(500).send(error)
+   }
+}
 module.exports = {
   findContactUser : findContactUser,
   addContact: addContact,
@@ -104,5 +128,7 @@ module.exports = {
   removeContactReceive: removeContactReceive,
   loadMoreContacts: loadMoreContacts,
   loadMoreContactsSent: loadMoreContactsSent,
-  loadMoreContactsReceive: loadMoreContactsReceive
+  loadMoreContactsReceive: loadMoreContactsReceive,
+  approvedRequestContact: approvedRequestContact,
+  removeContactUser: removeContactUser
 }
